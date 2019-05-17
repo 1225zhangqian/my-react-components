@@ -14,7 +14,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/1225zhangqian"
+    "url": "https://github.com/1225zhangqian/my-react-components"
   },
   "description": "",
   "babel": {
@@ -38,6 +38,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
     "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",

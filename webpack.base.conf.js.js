@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 module.exports = {
-  entry:'./example/index.js',
+  entry: './example/index.js',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'notification.[hash].js',
@@ -13,11 +13,11 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/preset-env','@babel/react'],
-                plugins: ['@babel/proposal-class-properties', '@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
-            }
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/react'],
+            plugins: ['@babel/proposal-class-properties', '@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
+          }
         }
       },
       {
