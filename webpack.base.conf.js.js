@@ -1,11 +1,21 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path');
 module.exports = {
-  entry: './example/index.js',
+  entry: {
+    notification: path.resolve(__dirname, 'example/index.js'),
+    "notification.min": path.resolve(__dirname, 'example/index.js'),
+  },
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'notification.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: "[name].js",
+    libraryExport: "default",
+    library: "notification",
+    libraryTarget: "umd"
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
@@ -50,8 +60,11 @@ module.exports = {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
-        inject: true
       },
+      inject: true
+    }),
+    new UglifyJsPlugin({
+      include: /\.min\.js$/
     })
   ]
 }
