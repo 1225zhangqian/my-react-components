@@ -1,4 +1,5 @@
 import React from "react";
+import '../../style/index.scss'
 import NotificationApi from "./notification.component";
 
 const notificationInstance = {};

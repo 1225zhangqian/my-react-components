@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path');
 module.exports = {
+  mode: "none",
   entry: {
     notification: path.resolve(__dirname, 'example/index.js'),
     "notification.min": path.resolve(__dirname, 'example/index.js'),
@@ -15,7 +16,10 @@ module.exports = {
     libraryTarget: "umd"
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      notification: path.resolve(__dirname, 'components')
+    }
   },
   module: {
     rules: [
