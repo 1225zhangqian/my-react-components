@@ -1,9 +1,11 @@
 {
   "name": "is-notification",
-  "version": "1.0.3",
-  "main": "index.js",
+  "version": "1.7.9",
+  "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "lib",
+    "index.js"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +15,7 @@
     "postsass": "postcss dist/index.css --use autoprefixer -m -o dist/index.css",
     "style": "npm run sass && cssnano dist/index.css dist/index.min.css --no-zindex --no-reduceIdents"
   },
-  "author": "",
+  "author": "qian.zhang",
   "license": "ISC",
   "repository": {
     "type": "git",

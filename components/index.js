@@ -1,4 +1,3 @@
 
-
-export { Notification } from './notification'
-// export { Modal } from './components/modal'
+import Notification from './notification'
+export { Notification } 
