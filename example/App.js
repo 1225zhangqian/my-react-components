@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification } from '../components'
+import Notification from '../components'
 import '../style/index.scss'
 class App extends React.Component {
     onClick = (type) => {

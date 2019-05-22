@@ -3,10 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path');
 module.exports = {
-  entry: './components/index.js',
+  entry: {
+    example: path.join(__dirname, 'example/index.js'),
+    notification: path.join(__dirname, 'components/index.js'),
+    'notification.min': path.join(__dirname, 'components/index.js'),
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "index.js"
+    filename: '[name].js',
+    libraryExport: 'default',
+    library: 'Notification',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
