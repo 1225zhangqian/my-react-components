@@ -85,27 +85,47 @@ $notification-margin-bottom: 16px;
     }
   }
   &-notice-fade {
-    animation-duration: 3s;
-    animation-delay: 2s;
+    animation-duration: 300s;
+    animation-delay: 0s;
     animation-iteration-count: infinite;
   }
   &-topRight,
   &-bottomRight {
-    .#{$notification-prefix-cls}-notice-bouncein-enter {
+    .fade-entering {
       animation-name: NotificationFadeIn;
+      animation-play-state: running;
+    }
+    .fade-entered {
+      animation-name: NotificationFadeIn;
+      animation-play-state: running;
+    }
+    .fade-exiting {
+      animation-name: NotificationFadeOut;
+      animation-play-state: running;
+    }
+    .fade-entered {
+      animation-name: NotificationFadeOut;
       animation-play-state: running;
     }
   }
   &-topLeft,
   &-bottomLeft {
-    .#{$notification-prefix-cls}-notice-bouncein-enter {
-      animation-name: NotificationLeftFadeIn;
+    .fade-entering {
+      animation-name: NotificationFadeIn;
       animation-play-state: running;
     }
-  }
-  &-notice-fadeout {
-    animation-name: NotificationFadeOut;
-    animation-play-state: running;
+    .fade-entered {
+      animation-name: NotificationFadeIn;
+      animation-play-state: running;
+    }
+    .fade-entering {
+      animation-name: NotificationFadeOut;
+      animation-play-state: running;
+    }
+    .fade-exited {
+      animation-name: NotificationFadeOut;
+      animation-play-state: running;
+    }
   }
 
   @keyframes NotificationFadeIn {
