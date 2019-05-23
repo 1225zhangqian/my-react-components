@@ -8,6 +8,18 @@ class App extends React.Component {
             description: `description--${type}`,
             duration: 0
         })
+
+        Notification[type]({
+            message: type,
+            description: `description--${type}`,
+            placement: 'topLeft'
+        })
+
+        Notification[type]({
+            message: type,
+            description: `description--${type}`,
+            placement: 'topRight'
+        })
     }
     render() {
         return (
