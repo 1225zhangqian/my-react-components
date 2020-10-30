@@ -1,3 +1,3 @@
 
-import Notification from './notification'
-export default Notification 
+export { default as Notification } from './notification'
+export { default as Modal } from './modal'

@@ -2,32 +2,42 @@ import React from "react";
 import * as ReactDOM from "react-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 const ModalLocale = {
-  okText: "ok",
-  cancelText: "cancel"
+  okText: "Ok",
+  cancelText: "Cancel"
 };
 const ConfirmDialog = props => {
-  const prefixCls = props.prefixCls || 'IS-';
-  const okText = props.okText ? props.okText : ModalLocale.okText;
-  const cancelText = props.cancelText ? props.cancelText : ModalLocale.cancelText;
-  const okCancel = !props.okCancel ? props.okCancel : true
+  let { prefixCls, okText, cancelText, okCancel, close, onOk, onCancel, onClose, title, ...restProps } = props
+  prefixCls = prefixCls || 'IS-';
+  okText = okText || ModalLocale.okText;
+  cancelText = cancelText || ModalLocale.cancelText;
+  okCancel = !!okCancel
   const handleOk = (e) => {
-    const onOk = props.onOk;
     if (onOk) {
       onOk(e);
     }
-    props.close()
+    close()
   }
   const handleCancel = (e) => {
-    const onCancel = props.onCancel;
     if (onCancel) {
       onCancel(e);
 
     }
-    props.close()
+    close()
+  }
+  const toggle = () => {
+    if (onClose) {
+      onClose();
+
+    }
+    close()
+
+  }
+  if (props.theme) {
+    theme = props.theme;
   }
   return (
-    <Modal {...props} className={`${prefixCls}modal-wrap`}>
-      <ModalHeader toggle={props.close}>{props.title}</ModalHeader>
+    <Modal {...restProps} className={`${prefixCls}modal-wrap`}>
+      <ModalHeader toggle={toggle}>{title}</ModalHeader>
       <ModalBody>{props.content}</ModalBody>
       <ModalFooter>
         {okCancel && <Button color="secondary" onClick={handleCancel}>
@@ -60,7 +70,9 @@ export default function confirm(props) {
   }
 
   function render(props) {
-    ReactDOM.render(<ConfirmDialog {...props} />, div);
+
+    ReactDOM.render(
+      <ConfirmDialog {...props} />, div);
   }
   render(currentProps);
 }
