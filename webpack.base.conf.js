@@ -1,18 +1,18 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path');
 module.exports = {
   entry: {
     example: path.join(__dirname, 'example/index.js'),
-    notification: path.join(__dirname, 'components/index.js'),
-    'notification.min': path.join(__dirname, 'components/index.js'),
+    "@zq/react-ui": path.join(__dirname, 'components/index.js'),
+    "@zq/react-ui.min": path.join(__dirname, 'components/index.js'),
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
     libraryExport: 'default',
-    library: 'Notification',
+    library: '@zq/react-ui',
     libraryTarget: 'umd',
   },
   module: {
@@ -44,6 +44,21 @@ module.exports = {
       }
     ]
   },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        include: /\.min\.js$/,
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          output: {
+            comments: false
+          }
+        }
+      }),
+    ],
+    noEmitOnErrors: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './example/index.html',
@@ -61,8 +76,5 @@ module.exports = {
       },
       inject: true
     }),
-    new UglifyJsPlugin({
-      include: /\.min\.js$/
-    })
   ]
 }
