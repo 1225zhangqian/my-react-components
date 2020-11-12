@@ -13,13 +13,11 @@ class ModalExample extends Component {
       this.toggle();
     }
   };
-  handleOk = e => {
+  handleOk = () => {
     this.toggle();
-    console.log("onOk");
   };
-  handleCancel = e => {
+  handleCancel = () => {
     this.toggle();
-    console.log("onCancel");
   };
   toggle = () => {
     this.setState({ visible: !this.state.visible });

@@ -1,7 +1,6 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true,
         "amd": true,
         commonjs: true,
         node: true
@@ -48,5 +47,6 @@ module.exports = {
     },
     "rules": {
         "react/prop-types": "off",
+        "no-func-assign": "off"
     }
 };
