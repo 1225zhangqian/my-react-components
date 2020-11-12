@@ -50,6 +50,36 @@ module.exports = merge(baseConfig, {
       amd: "bootstrap"
     }
   },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/react'],
+            plugins: ['@babel/proposal-class-properties', '@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
+          }
+        }
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
+    ]
+  },
   optimization: {
     minimizer: [
       new OptimizeCSSAssetsPlugin({

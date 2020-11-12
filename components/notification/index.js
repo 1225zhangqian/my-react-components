@@ -2,12 +2,12 @@ import React from "react";
 import NotificationApi from "./notification.component";
 
 const notificationInstance = {};
-const typeToIcon = {
-  warning: '../images/warning-icon.svg',
-  success: '../images/success-icon.svg',
-  info: '../images/info-icon.svg',
-  error: '../images/error-icon.svg'
-}
+// const typeToIcon = {
+//   warning: '../images/warning-icon.svg',
+//   success: '../images/success-icon.svg',
+//   info: '../images/info-icon.svg',
+//   error: '../images/error-icon.svg'
+// }
 const typeToColor = {
   warning: '#faad14',
   success: '#52c41a',

@@ -1,5 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path');
 module.exports = {
@@ -20,13 +19,15 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
+        use: [{
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/react'],
             plugins: ['@babel/proposal-class-properties', '@babel/plugin-proposal-object-rest-spread', '@babel/plugin-syntax-dynamic-import']
           }
-        }
+        }, {
+          loader: 'eslint-loader'
+        },]
       },
       {
         test: /\.s?css$/,
@@ -34,7 +35,6 @@ module.exports = {
           {
             loader: 'style-loader'
           },
-          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader'
           },
@@ -59,23 +59,5 @@ module.exports = {
       }),
     ],
     noEmitOnErrors: true,
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './example/index.html',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-      inject: true
-    }),
-  ]
+  }
 }

@@ -32,9 +32,6 @@ const ConfirmDialog = props => {
     close()
 
   }
-  if (props.theme) {
-    theme = props.theme;
-  }
   return (
     <Modal {...restProps} className={`${prefixCls}modal-wrap`}>
       <ModalHeader toggle={toggle}>{title}</ModalHeader>
