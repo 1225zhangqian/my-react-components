@@ -7,7 +7,7 @@ module.exports = merge(baseConfig, {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './dist',
-        port: 3000
+        port: 3001
     },
     module: {
         rules: [
@@ -29,19 +29,6 @@ module.exports = merge(baseConfig, {
     plugins: [
         new HtmlWebpackPlugin({
             template: './example/index.html',
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true,
-            },
-            inject: true
         }),
     ]
 });

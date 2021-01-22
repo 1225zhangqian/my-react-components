@@ -13,6 +13,8 @@ module.exports = {
     libraryExport: 'default',
     library: '@zq/react-ui',
     libraryTarget: 'umd',
+    chunkLoading: false,
+    wasmLoading: false
   },
   module: {
     rules: [
