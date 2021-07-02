@@ -5,22 +5,26 @@ const babel = require('gulp-babel');
 // const cssnano = require('cssnano');
 // const postcss = require('gulp-postcss');
 // const postcssModules = require("postcss-modules")
+const base64 = require('gulp-base64');
 const sass = require('gulp-sass');
 const cssmin = require('gulp-clean-css');
 sass.compiler = require('node-sass');
 // const through2 = require('through2');
-const concat = require('gulp-concat');
+// const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 
 function compileStyle() {
-    return src('./style/index.scss')
-        .pipe(sass({
-            outputStyle: 'compressed',
-            includePaths: ['node_modules/bootstrap/scss']
-        }).on('error', sass.logError))
-        .pipe(cssmin())
-        .pipe(rename({ basename: "zq-react-ui", suffix: '.style.min' }))
-        .pipe(dest('./es'));
+  return src('./style/index.scss')
+    .pipe(base64())
+    .pipe(
+      sass({
+        outputStyle: 'compressed',
+        includePaths: ['node_modules/bootstrap/scss']
+      }).on('error', sass.logError)
+    )
+    .pipe(cssmin())
+    .pipe(rename({ basename: 'zq-react-ui', suffix: '.style.min' }))
+    .pipe(dest('./es'));
 }
 
 // function imagesTask() {
@@ -57,35 +61,43 @@ function compileStyle() {
 // }
 
 function streamTask() {
-    // process.env.BABEL_ENV = "esm";
-    return src(['./components/**/*.@(js|jsx)', '!./components/**/*.spec.js'])
-        .pipe(babel({
-            presets: [
-                ['@babel/preset-env',
-                    {
-                        modules: false,
-                    }],
-                '@babel/preset-react',
+  // process.env.BABEL_ENV = "esm";
+  return (
+    src(['./components/**/*.@(js|jsx)', '!./components/**/*.spec.js'])
+      .pipe(
+        babel({
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                modules: false
+              }
             ],
-            plugins: [
-                "@babel/plugin-proposal-class-properties",
-                "@babel/plugin-syntax-dynamic-import",
-                ["@babel/plugin-transform-runtime",
-                    {
-                        useESModules: true,
-                    }]
+            '@babel/preset-react'
+          ],
+          plugins: [
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-syntax-dynamic-import',
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                useESModules: true
+              }
             ]
-        }))
-        // .pipe(
-        //     through2.obj(function z(file, encoding, next) {
-        //         this.push(file.clone());
-        //         const content = file.contents.toString(encoding);
-        //         file.contents = Buffer.from(cssInjection(content));
-        //         this.push(file);
-        //         next();
-        //     }),
-        // )
-        .pipe(dest('./es'));
+          ]
+        })
+      )
+      // .pipe(
+      //     through2.obj(function z(file, encoding, next) {
+      //         this.push(file.clone());
+      //         const content = file.contents.toString(encoding);
+      //         file.contents = Buffer.from(cssInjection(content));
+      //         this.push(file);
+      //         next();
+      //     }),
+      // )
+      .pipe(dest('./es'))
+  );
 }
 
 // function concatCss() {
@@ -96,6 +108,4 @@ function streamTask() {
 
 // }
 
-exports.default = series(
-    compileStyle,
-    streamTask);
+exports.default = series(compileStyle, streamTask);

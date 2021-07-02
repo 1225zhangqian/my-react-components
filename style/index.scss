@@ -1,5 +1,6 @@
 $css-prefix: "IS-";
 $fontPrimarySize: 14px;
 $zindex-notification: 9999;
+@import "./tooltip.scss";
 @import "./notification.scss";
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

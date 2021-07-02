@@ -9,23 +9,6 @@ module.exports = merge(baseConfig, {
         contentBase: './dist',
         port: 3001
     },
-    module: {
-        rules: [
-            {
-                test: /\.s?css$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'sass-loader'
-                    }
-                ]
-            }]
-    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './example/index.html',
