@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.conf.js');
 const glob = require('glob');
@@ -23,32 +22,7 @@ module.exports = merge(baseConfig, {
     '@zq/react-ui.min': path.join(__dirname, 'components/index.js'),
     ...getEsEntry()
   },
-  output: {
-    path: path.join(__dirname, 'lib'),
-    filename: '[name].js',
-    libraryExport: 'default',
-    library: '@zq/react-ui',
-    libraryTarget: 'umd',
-    chunkLoading: false,
-    wasmLoading: false
-  },
   mode: 'production',
-  module: {
-    rules: [
-      {
-        test: /\.s?css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
-      }
-    ]
-  },
   externals: {
     react: {
       root: 'React',
@@ -77,16 +51,6 @@ module.exports = merge(baseConfig, {
   },
   optimization: {
     minimizer: [
-      new TerserPlugin({
-        include: /\.min\.js$/,
-        parallel: true,
-        extractComments: false,
-        terserOptions: {
-          output: {
-            comments: false
-          }
-        }
-      }),
       new OptimizeCSSAssetsPlugin({
         // express css   ExtractTextPlugin
         cssProcessor: require('cssnano'),

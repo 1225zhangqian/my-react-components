@@ -9,7 +9,7 @@ const base64 = require('gulp-base64');
 const sass = require('gulp-sass');
 const cssmin = require('gulp-clean-css');
 sass.compiler = require('node-sass');
-// const through2 = require('through2');
+const through2 = require('through2');
 // const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 
@@ -32,11 +32,14 @@ function compileStyle() {
 //         .pipe(dest('../es'));
 // }
 
-// function cssInjection(content) {
-//     return content
-//         .replace(/import\s(\')?(\")?\.\/style(\/index)?(\')?(\")?(\;)?/g, '')
-//         .replace(/\.module\.scss/g, '.module.css.json')
-// }
+function cssInjection(content) {
+  return content.replace(/import '.\/notification.scss';/, '');
+  // return content.replace(
+  //   /import\s(\')?(\")?\.\/style(\/index)?(\')?(\")?(\;)?/g,
+  //   ''
+  // );
+  // .replace(/\.module\.scss/g, '.module.css.json');
+}
 
 // function compileModuleStyle() {
 //     return src('../es/**/*.module.css')
@@ -62,42 +65,40 @@ function compileStyle() {
 
 function streamTask() {
   // process.env.BABEL_ENV = "esm";
-  return (
-    src(['./components/**/*.@(js|jsx)', '!./components/**/*.spec.js'])
-      .pipe(
-        babel({
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                modules: false
-              }
-            ],
-            '@babel/preset-react'
+  return src(['./components/**/*.@(js|jsx)', '!./components/**/*.spec.js'])
+    .pipe(
+      babel({
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              modules: false
+            }
           ],
-          plugins: [
-            '@babel/plugin-proposal-class-properties',
-            '@babel/plugin-syntax-dynamic-import',
-            [
-              '@babel/plugin-transform-runtime',
-              {
-                useESModules: true
-              }
-            ]
+          '@babel/preset-react'
+        ],
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          '@babel/plugin-syntax-dynamic-import',
+          [
+            '@babel/plugin-transform-runtime',
+            {
+              useESModules: true
+            }
           ]
-        })
-      )
-      // .pipe(
-      //     through2.obj(function z(file, encoding, next) {
-      //         this.push(file.clone());
-      //         const content = file.contents.toString(encoding);
-      //         file.contents = Buffer.from(cssInjection(content));
-      //         this.push(file);
-      //         next();
-      //     }),
-      // )
-      .pipe(dest('./es'))
-  );
+        ]
+      })
+    )
+    .pipe(
+      through2.obj(function z(file, encoding, next) {
+        this.push(file.clone());
+        const content = file.contents.toString(encoding);
+        file.contents = Buffer.from(cssInjection(content));
+        this.push(file);
+        next();
+      })
+    )
+    .pipe(dest('./es'));
 }
 
 // function concatCss() {
